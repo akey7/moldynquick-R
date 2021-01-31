@@ -1,0 +1,47 @@
+---
+title: "7BTF RMSD analysis"
+author: "Alicia Key"
+date: "1/31/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+```
+
+## Define a few variables for conversions
+
+```{r}
+step_fs = 2
+steps_per_frame = 500
+fs_per_frame = step_fs * steps_per_frame
+```
+
+## Read the data
+
+```{r}
+rmsd <- read_csv("7BTF_no_Zn_RMSD.csv") %>%
+  mutate(µs = frame * fs_per_frame / 1e6)
+head(rmsd)
+```
+
+## Plot rajectory and desnity
+
+```{r}
+p1 <- ggplot(rmsd, aes(x = µs, y = rmsd.angstroms)) +
+  geom_line() +
+  theme_minimal() +
+  theme(plot.margin = margin(5, 0, 0, 0, unit = "pt"))
+
+p2 <- ggplot(rmsd, aes(x = rmsd.angstroms)) +
+  geom_density() +
+  theme_minimal() +
+  theme(plot.margin = margin(5, 0, 0, 0, unit = "pt")) +
+  coord_flip()
+
+grid.arrange(p1, p2, ncol = 2)
+```
