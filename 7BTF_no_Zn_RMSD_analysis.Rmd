@@ -29,7 +29,7 @@ rmsd <- read_csv("7BTF_no_Zn_RMSD.csv") %>%
 head(rmsd)
 ```
 
-## Plot rajectory and desnity
+## Plot rajectory and density
 
 ```{r}
 p1 <- ggplot(rmsd, aes(x = µs, y = rmsd.angstroms)) +
@@ -41,6 +41,23 @@ p2 <- ggplot(rmsd, aes(x = rmsd.angstroms, ..scaled..)) +
   geom_density() +
   theme_minimal() +
   theme(plot.margin = margin(5, 0, 0, 0, unit = "pt")) +
+  coord_flip()
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+## Plot rajectory and histogram
+
+```{r}
+p1 <- ggplot(rmsd, aes(x = µs, y = rmsd.angstroms)) +
+  geom_line() +
+  theme_minimal() +
+  theme(plot.margin = margin(5, 0, 0, 0, unit = "pt"))
+
+p2 <- ggplot(rmsd, aes(x = rmsd.angstroms)) +
+  geom_histogram(bins = 100) +
+  theme_minimal() +
+  theme(plot.margin = margin(0, 0, 0, 0, unit = "pt")) +
   coord_flip()
 
 grid.arrange(p1, p2, ncol = 2)
