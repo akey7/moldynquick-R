@@ -57,7 +57,7 @@ p1 <- ggplot(rmsd, aes(x = µs, y = rmsd.angstroms)) +
 p2 <- ggplot(rmsd, aes(x = rmsd.angstroms)) +
   geom_histogram(bins = 100) +
   theme_minimal() +
-  theme(plot.margin = margin(0, 0, 0, 0, unit = "pt")) +
+  theme(plot.margin = margin(5, 0, 0, 0, unit = "pt")) +
   coord_flip()
 
 grid.arrange(p1, p2, ncol = 2)
